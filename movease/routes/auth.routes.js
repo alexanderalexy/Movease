@@ -18,11 +18,50 @@ router.get('/signup', (req, res, next) => {
     payload.passwordHash = bcrypt.hashSync(req.body.password, salt)
 
     try {
-        const newUser = User.create(payload)
+        const newUser = await User.create(payload)
         console.log('New User:', newUser)
+        res.redirect('/auth/login')
     } catch (error) {
-            console.log(err)
+            console.log(error)
         }
+    })
+
+
+    //login rout
+
+    router.get('/login', (req, res) => {
+        res.render('auth/login')
+    }
+    )
+
+    //login router post
+    router.post('/login', async (req, res) => {
+
+   
+
+        //handle no user or incorrect password
+        // 1. check fo the username in DB
+       //console.log("here is the body", req.body)
+       try {
+       const foundUser = await User.findOne({username: req.body.username});
+       console.log("Found User", foundUser);
+       //Check if you find the user, compare the password to the passwordHash in the DB
+       if(foundUser){ 
+        let passwordMatch = bcrypt.compareSync(req.body.password, foundUser.passwordHash)
+        console.log('do passwords match', passwordMatch)
+        if(passwordMatch){
+
+        }else {
+         res.render('auth/login', { errorMessage: 'Try again please'})
+        }
+       }
+       else{
+        res.render('auth/login', { errorMessage : "Invalid inputs" });
+       }
+       } catch (error) {
+            console.log(error)
+       }
+       
     })
 
 

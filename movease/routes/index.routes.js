@@ -6,9 +6,8 @@ router.get("/", (req, res, next) => {
   res.render("index");
 });
 
-/* GET Signup page */
-router.get('/signup', (req, res, next) => {
-  res.render('auth/signup')
-})
+router.get('/search', (req, res ) => {
+  res.render('search');
+});
 
 module.exports = router;
