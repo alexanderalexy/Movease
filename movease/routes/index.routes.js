@@ -7,6 +7,7 @@ router.get("/", (req, res, next) => {
 });
 
 router.get('/search', (req, res ) => {
+  console.log('here is the session from the search route', req.session)
   res.render('search');
 });
 
