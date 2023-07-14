@@ -3,31 +3,18 @@ const { Schema, model } = require("mongoose");
 // TODO: Please make sure you edit the User model to whatever makes sense in this case
 const movieSchema = new Schema(
   {
-    genre: {
-      type: String,
+    
+      name: String,
+      director: String,
+      actor: String,
+      genre: String,
+      length: Number,
+      related: [String],
+      image: url,
       
+    
     },
-    actor: {
-      type: String,
-      
-    },
-    director: {
-      type: String,
-      
-    },
-    length: {
-      type: Number,
-    },
-    relatedmovies: {
-        type: [],
-    }
-
-  },
-  {
-    // comment for Github
-    // this second object adds extra properties: `createdAt` and `updatedAt`    
-    timestamps: true
-  }
+  
 );
 
 const Movie = model("Movie", movieSchema);
