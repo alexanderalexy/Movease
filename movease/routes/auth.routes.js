@@ -1,5 +1,6 @@
 
 const router = require('express').Router();
+const { isLoggedIn, isLoggedOut } = require('../middleware/route-guard.middleware');
 //const express = require('express')
 const User = require('../models/User.model')
 const bcrypt = require("bcryptjs")
@@ -7,7 +8,7 @@ const bcrypt = require("bcryptjs")
 
 
 /* GET Signup page */
-router.get('/signup',  (req, res, next) => {
+router.get('/signup', isLoggedOut, (req, res, next) => {
     res.render('auth/signup')
   })
 

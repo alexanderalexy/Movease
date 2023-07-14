@@ -4,13 +4,13 @@ const { Schema, model } = require("mongoose");
 const movieSchema = new Schema(
   {
     
-      name: String,
+      title: String,
       director: String,
-      actor: String,
+      actors: [String],
       genre: String,
+      description: String,
       length: Number,
-      related: [String],
-      image: url,
+      image: String,
       
     
     },
