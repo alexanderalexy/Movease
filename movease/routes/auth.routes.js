@@ -7,7 +7,7 @@ const bcrypt = require("bcryptjs")
 
 
 /* GET Signup page */
-router.get('/signup', (req, res, next) => {
+router.get('/signup',  (req, res, next) => {
     res.render('auth/signup')
   })
 
@@ -51,7 +51,7 @@ router.get('/signup', (req, res, next) => {
         if(passwordMatch){
         foundUser.passwordHash = '****'
         req.session.currentUser = foundUser;
-        console.log(currentUser)
+       
         res.redirect('/search')
         }else {
          res.render('auth/login', { errorMessage: 'Try again please'})
