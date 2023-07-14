@@ -11,7 +11,7 @@ router.get("/", (req, res, next) => {
 
 // GET search page
 
-router.get('/search',isLoggedIn, isAdmin, (req, res, next ) => {
+router.get('/search',isLoggedIn, /*isAdmin,*/ (req, res, next ) => {
   //added currentUser instead of user
   res.render('search', { currentUser: req.session.currentUser })
 })
