@@ -24,7 +24,7 @@ router.get('/add-movie',/*isLoggedIn,*/ isAdmin, (req, res, next ) => {
  res.render('add-movie', { currentUser: req.session.currentUser })
 })
 
-// POST '/movies/create' route to create a new movie in the DB
+// POST route to add a new movie in the DB
 /*
 router.post('/add-movie', (req, res, next) => {
   const { title, director, actors, genre, description, length, image } = req.body
@@ -47,6 +47,29 @@ router.post('/add-movie', async (req, res, next) => {
     res.render('add-movie');
   }
 });
+
+// ***** (D)ELETE ROUTES *****
+
+//GET to delete a movie only with admin rights
+
+router.get('/delete-movie',/*isLoggedIn,*/ isAdmin, (req, res, next ) => {
+  //added currentUser instead of user
+ res.render('delete-movie', { currentUser: req.session.currentUser })
+})
+
+// POST-Route zum Löschen eines Films
+router.post('/delete-movie/:id', async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    
+    await Movie.findByIdAndDelete(id);
+    
+    res.redirect('/movies');
+  } catch (err) {
+    next(err);
+  }
+});
+
 
 
 
