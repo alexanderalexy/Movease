@@ -1,1 +1,25 @@
-<h1>recommendation</h1>
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Recommendation</title>
+</head>
+<body>
+  <h1>Recommendation</h1>
+  
+  <% if (movies && movies.length > 0) { %>
+    <h2>Search Results:</h2>
+    <ul>
+      <% movies.forEach((movie) => { %>
+        <li><%= movie.title %></li>
+      <% }); %>
+    </ul>
+  <% } else if (movies && movies.length === 0) { %>
+    <p>No movies found.</p>
+  <% } %>
+  
+  <% if (errorMessage) { %>
+    <p><%= errorMessage %></p>
+  <% } %>
+</body>
+</html>
+

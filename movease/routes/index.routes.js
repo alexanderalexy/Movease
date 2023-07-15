@@ -16,6 +16,61 @@ router.get('/search',isLoggedIn, /*isAdmin,*/ (req, res, next ) => {
   res.render('search', { currentUser: req.session.currentUser })
 })
 
+// POST-Route für die Filmdatensuche
+
+// ...
+
+// ...
+
+// GET-Route für die Empfehlungsseite
+router.get('/recommendation', (req, res) => {
+  res.render('recommendation', { movies: [], errorMessage: null });
+});
+
+// POST-Route für die Filmdatensuche
+router.post('/search', async (req, res, next) => {
+  try {
+    const { title, director, actors, genre, length, description } = req.body;
+    
+    // Überprüfen, ob mindestens ein Feld ausgefüllt ist
+    if (!title && !director && !actors && !genre && !length && !description) {
+      throw new Error('Bitte mindestens ein Feld ausfüllen!');
+    }
+    
+    // Filter für die Suche erstellen
+    const filter = {};
+    if (title) {
+      filter.title = { $regex: title, $options: 'i' };
+    }
+    if (director) {
+      filter.director = { $regex: director, $options: 'i' };
+    }
+    if (actors) {
+      filter.actors = { $regex: actors, $options: 'i' };
+    }
+    if (genre) {
+      filter.genre = { $regex: genre, $options: 'i' };
+    }
+    if (length) {
+      filter.length = length;
+    }
+    if (description) {
+      filter.description = { $regex: description, $options: 'i' };
+    }
+    
+    // Filme basierend auf dem Filter suchen
+    const movies = await Movie.find(filter);
+    
+    res.render('recommendation', { movies, errorMessage: null });
+  } catch (err) {
+    res.render('recommendation', { movies: [], errorMessage: err.message });
+  }
+});
+
+// ...
+
+
+
 
 //GET to add a new movie only with admin rights
 
@@ -103,6 +158,9 @@ router.post('/update-movie', async (req, res, next) => {
     res.redirect('/update-movie');
   }
 });
+
+
+
 
 
 
