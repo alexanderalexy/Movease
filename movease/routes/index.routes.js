@@ -70,7 +70,39 @@ router.post('/delete-movie', async (req, res, next) => {
   }
 });
 
+// *****  UPDATE ROUTES *****
 
+router.get('/update-movie',/*isLoggedIn,*/ isAdmin, (req, res, next ) => {
+  //added currentUser instead of user
+ res.render('update-movie', { currentUser: req.session.currentUser })
+})
+
+
+// POST-Route zum Aktualisieren eines Films
+router.post('/update-movie', async (req, res, next) => {
+  try {
+    const { search, title, director, actors, genre, length, description, image } = req.body;
+    
+    // Film suchen
+    const movie = await Movie.findOneAndUpdate({ title: search }, {
+      title,
+      director,
+      actors,
+      genre,
+      length,
+      description,
+      image
+    });
+    
+    if (!movie) {
+      throw new Error('Movie not found');
+    }
+    
+    res.redirect('/update-movie');
+  } catch (err) {
+    res.redirect('/update-movie');
+  }
+});
 
 
 
