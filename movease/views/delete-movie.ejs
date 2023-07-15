@@ -1,21 +1,11 @@
 
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Delete Movies</title>
-</head>
-<body>
   <h1>Delete Movies</h1>
   
-  <form action="/delete-movie/<%= moviesId %>" method="POST">
+  <form action="/delete-movie" method="POST">
     <label for="movieId">Movie ID:</label>
     <input type="text" id="movieId" name="movieId" required>
     <button type="submit">Delete Movie</button>
   </form>
   
-  <% if (errorMessage) { %>
-    <p><%= errorMessage %></p>
-  <% } %>
-</body>
-</html>
+  
 

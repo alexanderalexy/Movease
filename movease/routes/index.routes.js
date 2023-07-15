@@ -58,17 +58,18 @@ router.get('/delete-movie',/*isLoggedIn,*/ isAdmin, (req, res, next ) => {
 })
 
 // POST-Route zum Löschen eines Films
-router.post('/delete-movie/:id', async (req, res, next) => {
+router.post('/delete-movie', async (req, res, next) => {
   try {
-    const { id } = req.params;
+    const { movieId } = req.body;
     
-    await Movie.findByIdAndDelete(id);
+    const deleteMovie = await Movie.findByIdAndDelete(movieId);
     
-    res.redirect('/movies');
+    res.redirect('/delete-movie');
   } catch (err) {
     next(err);
   }
 });
+
 
 
 
