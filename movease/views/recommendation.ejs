@@ -10,7 +10,16 @@
     <h2>Search Results:</h2>
     <ul>
       <% movies.forEach((movie) => { %>
-        <li><%= movie.title %></li>
+        <li>
+          <strong>Title:</strong> <%= movie.title %><br>
+          <strong>Director:</strong> <%= movie.director %><br>
+          <strong>Actors:</strong> <%= movie.actors %><br>
+          <strong>Genre:</strong> <%= movie.genre %><br>
+          <strong>Length:</strong> <%= movie.length %><br>
+          <strong>Description:</strong> <%= movie.description %><br>
+          <strong>Image:</strong> <%= movie.image %><br>
+        </li>
+        <br>
       <% }); %>
     </ul>
   <% } else if (movies && movies.length === 0) { %>
@@ -22,4 +31,3 @@
   <% } %>
 </body>
 </html>
-
