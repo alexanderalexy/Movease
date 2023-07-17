@@ -1,5 +1,5 @@
 const express = require('express');
-const { isLoggedIn, isAdmin } = require('../middleware/route-guard.middleware')
+const { isLoggedIn, isAdmin, isLoggedOut } = require('../middleware/route-guard.middleware')
 const router = express.Router();
 const Movie = require('../models/Movie.model')
 /* GET home page */
@@ -157,6 +157,29 @@ router.post('/update-movie', async (req, res, next) => {
   } catch (err) {
     res.redirect('/update-movie');
   }
+});
+
+
+
+
+// Route for the home page
+router.get('/', isLoggedOut, (req, res) => {
+  res.render('index'); // Render the home.ejs file for the '/' route
+});
+
+// Route for the about page
+router.get('/search', isLoggedIn, (req, res) => {
+  res.render('search'); // Render the about.ejs file for the '/about' route
+});
+
+// Route for the services page
+router.get('/add-movie', isAdmin, (req, res) => {
+  res.render('add-movie'); // Render the services.ejs file for the '/services' route
+});
+
+// Route for the contact page
+router.get('/delete-movie', isAdmin, (req, res) => {
+  res.render('delete-movie'); // Render the contact.ejs file for the '/contact' route
 });
 
 
