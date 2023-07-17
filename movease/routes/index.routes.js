@@ -1,5 +1,5 @@
 const express = require('express');
-const { isLoggedIn, isAdmin, isLoggedOut } = require('../middleware/route-guard.middleware')
+const { isLoggedIn, isAdmin } = require('../middleware/route-guard.middleware')
 const router = express.Router();
 const Movie = require('../models/Movie.model')
 /* GET home page */
@@ -127,7 +127,7 @@ router.post('/delete-movie', async (req, res, next) => {
 
 // *****  UPDATE ROUTES *****
 
-router.get('/update-movie',/*isLoggedIn,*/ isAdmin, (req, res, next ) => {
+router.get('/update-movie', isAdmin, (req, res, next ) => {
   //added currentUser instead of user
  res.render('update-movie', { currentUser: req.session.currentUser })
 })
@@ -162,24 +162,46 @@ router.post('/update-movie', async (req, res, next) => {
 
 
 
+
+
+
+
+//*****Navbar******/
+
 // Route for the home page
-router.get('/', isLoggedOut, (req, res) => {
+router.get('/', (req, res) => {
+  if(req.session.user) {
   res.render('index'); // Render the home.ejs file for the '/' route
+  }
 });
 
-// Route for the about page
-router.get('/search', isLoggedIn, (req, res) => {
-  res.render('search'); // Render the about.ejs file for the '/about' route
+// Route for the search page
+router.get('/search', (req, res) => {
+  
+  res.render('search'); // Render the search.ejs file for the '/search' route
+  
 });
 
-// Route for the services page
-router.get('/add-movie', isAdmin, (req, res) => {
-  res.render('add-movie'); // Render the services.ejs file for the '/services' route
+// Route for the add-movie page
+router.get('/add-movie', (req, res) => {
+  
+  res.render('add-movie'); // Render the add-movie.ejs file for the '/add-movie' route
+  
 });
 
-// Route for the contact page
-router.get('/delete-movie', isAdmin, (req, res) => {
+// Route for update-movie page
+router.get('/update-movie', (req, res) => {
+  
+  res.render('update-movie'); // Render the update-movie.ejs file for the '/update-movie' route
+  
+});
+
+
+// Route for the delete page
+router.get('/delete-movie', (req, res) => {
+  
   res.render('delete-movie'); // Render the contact.ejs file for the '/contact' route
+  
 });
 
 

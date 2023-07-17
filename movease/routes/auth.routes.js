@@ -52,7 +52,7 @@ router.get('/signup', isLoggedOut, (req, res, next) => {
         if(passwordMatch){
         foundUser.passwordHash = '****'
         req.session.currentUser = foundUser;
-       
+        req.session.currentUser.isLoggedIn = true;
         res.redirect('/search')
         }else {
          res.render('auth/login', { errorMessage: 'Try again please'})
